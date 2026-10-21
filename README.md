@@ -22,7 +22,9 @@
 
 ## 界面预览
 
-![FakeTyper Pro 主界面](screenshot-main.png)
+<p align="center">
+  <img src="screenshot-main.png" width="320" alt="FakeTyper Pro 主界面">
+</p>
 
 ---
 
