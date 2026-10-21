@@ -22,7 +22,7 @@
 
 ## 界面预览
 
-![主窗口](_glass_preview.png)
+![FakeTyper Pro 主界面](screenshot-main.png)
 
 ![控件层](_widgets_preview.png)
 
