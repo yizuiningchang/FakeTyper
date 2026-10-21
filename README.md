@@ -24,8 +24,6 @@
 
 ![FakeTyper Pro 主界面](screenshot-main.png)
 
-![控件层](_widgets_preview.png)
-
 ---
 
 ## 技术栈
