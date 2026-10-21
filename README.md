@@ -28,6 +28,22 @@
 
 ---
 
+## 技术栈
+
+| 层面 | 技术 |
+|---|---|
+| 界面 | [PySide6](https://doc.qt.io/qtforpython-6/)（Qt 6，自绘控件 + 主题系统） |
+| 键盘输入 | [keyboard](https://github.com/boppreh/keyboard)（全局钩子，VK_PACKET 注入） |
+| 依赖 | [pyperclip](https://github.com/asweigart/pyperclip)、[Pillow](https://python-pillow.org/) |
+| 打包 | [PyInstaller](https://pyinstaller.org/)（单文件、无控制台） |
+| 语言 | Python 3.13 开发，运行需 3.11+（用 Release 的 exe 则无需 Python） |
+
+## 系统要求
+
+- Windows 10 / 11（64 位）
+- 管理员权限（全局键盘钩子必需）
+- 使用 Release 中的 `FakeTyperPro.exe` 时无需安装 Python
+
 ## 功能特性
 
 - **两种输出模式**
