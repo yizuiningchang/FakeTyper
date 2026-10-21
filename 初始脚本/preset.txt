@@ -1,0 +1,11 @@
+if not model_toggle:
+    annotated, events, draw_items = self._run_model_a(frame)
+    cached_draw_a = draw_items
+    annotated = self._overlay(annotated, cached_draw_b)
+else:
+    annotated, events, draw_items = self._run_model_b(frame)
+    cached_draw_b = draw_items
+    annotated = self._overlay(annotated, cached_draw_a)
+
+model_toggle = not model_toggle
+self.frame_signal.emit(annotated)

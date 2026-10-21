@@ -1,0 +1,7 @@
+# FakeTyper Pro 运行依赖
+PySide6>=6.6.0
+keyboard>=0.13.5
+pyperclip>=1.8.2
+
+# 打包（开发期按需安装）
+# pyinstaller>=6.0

@@ -1,0 +1,32 @@
+﻿============================================================
+FakeTyper Pro M3-d 主题运行时切换验证
+============================================================
+
+[1 ThemeManager] ThemeManager 单例 + 基本 API
+  OK: 单例/信号/方法 齐全，初始 resolved=dark
+
+[2 三模式切换] dark ↔ light ↔ system 切换 + resolved 解析
+  OK: → light, bg_top=#EAECF6
+  OK: → dark, bg_top=#1B1B33
+  OK: system + 深色系统 → resolved=dark
+  OK: system + 浅色系统 → resolved=light
+
+[3 themeChanged信号] themeChanged 信号触发
+  OK: themeChanged 触发 ['light', 'dark']（同名不重复触发）
+
+[4 控件刷新] GlassContainer/GlassButton 在主题切换后刷新（截图像素差异）
+  dark 平均色: RGB(87, 91, 115)
+  light 平均色: RGB(124, 127, 147)
+  OK: dark → light 像素差异显著（R 差 37）
+  OK: light → dark 可逆恢复
+
+[5 AppearancePane] AppearancePane 分段切换 → 实时 set_theme + config 写回
+  OK: 分段→浅色 → config=light, resolved=light
+  OK: 分段→系统 → config=system, resolved=dark
+
+[6 兼容性] palette_for / DARK / LIGHT 常量仍可用（兼容性）
+  OK: DARK/LIGHT/palette_for 兼容性保持
+
+============================================================
+✓ M3-d 主题运行时切换验证全部通过
+============================================================

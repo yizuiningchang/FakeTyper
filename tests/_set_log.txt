@@ -1,0 +1,86 @@
+﻿============================================================
+FakeTyper Pro M3-b 设置中心验证
+============================================================
+
+[1 导入] 模块导入
+  OK: SettingsPage / 6 个 Pane / 4 个新控件 已导入
+
+[2 构造] 独立构造 SettingsPage
+  OK: SettingsPage 已构造（6 个分栏）
+
+[3 导航切换] 导航点击切换分栏
+  OK: 切换到「通用」(stack idx=0)
+  OK: 切换到「快捷键」(stack idx=1)
+  OK: 切换到「打字」(stack idx=2)
+  OK: 切换到「外观」(stack idx=3)
+  OK: 切换到「数据」(stack idx=4)
+  OK: 切换到「关于」(stack idx=5)
+
+[4 双向同步] load → apply 双向同步
+  OK: 启动状态 → maximized
+  OK: 自动速度 → 500ms
+
+[5 分栏渲染] 6 个分栏分别截图
+  Pane[通用]: 有效像素占比 36%
+  Pane[快捷键]: 有效像素占比 63%
+  Pane[打字]: 有效像素占比 61%
+  Pane[外观]: 有效像素占比 20%
+  Pane[数据]: 有效像素占比 34%
+  Pane[关于]: 有效像素占比 18%
+  OK: 6 个分栏全部渲染
+
+[6 通用-自启] 通用分栏：开机自启 toggle
+  OK: 开机自启 toggle → True
+
+[7 打字联动] 打字分栏：滑块/分段/toggle 联动
+  OK: 抖动 toggle 联动滑块启用/禁用
+  OK: 每按键字符数 → 4
+
+[8 快捷键录制] 快捷键分栏：KeyCapButton 录制 + 冲突交换 + 恢复默认
+    - 按键触发模式 → F1
+    - 急停 → F2
+    - 自动匀速模式 → F3
+    - 重置进度 → F4
+    - 重新加载预设 → F5
+    - 切换下一预设 → F6
+  OK: 录制 F3 → KEY_TRIGGER↔AUTO 自动交换
+  OK: Esc 取消录制，键位不变
+  OK: 恢复默认映射正确
+
+[9 外观-主题] 外观分栏：主题分段
+  OK: 主题切换 dark↔light 写回 config
+
+[10 数据-信号] 数据分栏：4 个按钮信号转发
+  OK: 4 个数据按钮信号全部转发到 SettingsPage
+
+[11 关于] 关于分栏：版本号显示
+  OK: FakeTyper Pro / 版本 1.0.0
+  OK: 检查更新信号已转发
+
+[12 configChanged] configChanged 信号触发
+  OK: configChanged 触发 1 次
+
+[13 Esc 关闭] Esc 触发 closeRequested
+  OK: Esc → closeRequested
+
+[14 ConflictDialog] ConflictDialog 弹出 + accepted/rejected
+  OK: ConflictDialog accepted 信号
+  OK: ConflictDialog rejected 信号
+
+[15 独立控件] 4 个新控件独立渲染
+  独立控件: 有效像素占比 100%
+  OK: SegmentedControl / SliderWithLabel / SettingRow 渲染
+
+[16 MainWindow集成] MainWindow 集成：设置按钮 → push → pop
+  OK: MainWindow 初始栈深=1（主页）
+  OK: 设置按钮 → push 设置页（栈深=2）
+  MainWindow+Settings: 有效像素占比 100%
+  OK: 设置页 push 后截图已保存
+  OK: Esc → pop 回主页（栈深=1）
+
+[17 清理] 关闭所有窗口
+  OK: 全部关闭
+
+============================================================
+✓ M3-b 设置中心验证全部通过
+============================================================

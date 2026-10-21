@@ -1,0 +1,32 @@
+# ---------- 打包产物（体积大，用 GitHub Release 分发，不进仓库）----------
+build/
+dist/
+*.pkg
+
+# ---------- Python 缓存 / 虚拟环境 ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# ---------- 运行期数据与日志 ----------
+data/
+logs/
+*.log
+tests/_*_log.txt
+*.txt.bak
+
+# ---------- 编辑器 / AI 工具本地配置（非项目内容）----------
+.trae/
+.codebuddy/
+.trae-html-share-packages/
+
+# ---------- 系统与临时文件 ----------
+Thumbs.db
+desktop.ini
+.DS_Store
+*.tmp

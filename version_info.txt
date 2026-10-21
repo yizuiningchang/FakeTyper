@@ -1,0 +1,38 @@
+# UTF-8
+#
+# Windows 版本资源（PyInstaller version_file）
+# 见 https://pyinstaller.org/en/stable/spec-files.html#version-information
+
+VSVersionInfo(
+    ffi=FixedFileInfo(
+        # 版本号：主.次.修订.构建
+        filevers=(1, 0, 0, 0),
+        prodvers=(1, 0, 0, 0),
+        mask=0x3f,
+        flags=0x0,
+        OS=0x40004,        # NT_WINDOWS32
+        fileType=0x1,      # VFT_APP
+        subtype=0x0,
+        date=(0, 0),
+    ),
+    kids=[
+        StringFileInfo(
+            [
+                StringTable(
+                    '040904B0',  # 0x0409 (English) + 0x04B0 (Unicode)
+                    [
+                        StringStruct('CompanyName', 'FakeTyper Pro'),
+                        StringStruct('FileDescription', 'FakeTyper Pro —— 伪装打字桌面软件'),
+                        StringStruct('FileVersion', '1.0.0.0'),
+                        StringStruct('InternalName', 'FakeTyperPro'),
+                        StringStruct('LegalCopyright', '© 2026 FakeTyper Pro'),
+                        StringStruct('OriginalFilename', 'FakeTyperPro.exe'),
+                        StringStruct('ProductName', 'FakeTyper Pro'),
+                        StringStruct('ProductVersion', '1.0.0.0'),
+                    ]
+                )
+            ]
+        ),
+        VarFileInfo([VarStruct('Translation', [0x0409, 1200])])
+    ]
+)
