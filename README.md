@@ -1,9 +1,30 @@
 # FakeTyper Pro
 
-伪装打字桌面软件 —— 录制教学视频时，把预设代码假装现场手敲。
+[![License](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-4c72b0)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0078D6)](https://github.com/yizuiningchang/FakeTyper/releases)
+[![Python](https://img.shields.io/badge/python-3.11%2B-3776AB)](requirements.txt)
 
-基于 PySide6 液态玻璃 UI，重构自 AHK v2 脚本，提供多预设管理、可重绑热键、
-设置中心、系统托盘、开机自启等完整桌面应用体验。单文件 exe，快捷方式放任意位置即可启动。
+> **一句话**：把预先准备好的代码或文案，用拟人化的打字节奏逐字输出到任意输入框，
+> 让录课、直播、演示里的内容看起来是现场手敲出来的。
+
+一个 Windows 桌面端的**伪装打字 / 自动输入工具**。录制教学视频、演示 demo、直播写代码时，
+你可以提前把要展示的内容存成预设，运行时软件按真实打字节奏（含随机抖动、标点停顿、偶尔的思考停顿）
+逐字"敲"进当前光标位置——不用背稿、不会打错、不会卡壳，也不需要剪辑加速。
+
+**关键词**：伪装打字、自动打字、模拟键盘输入、自动输入文字、录课工具、演示录制、代码演示、
+打字动画、auto typer、fake typing、typing simulator、keyboard automation、pyautogui 替代方案
+
+## 版本状态
+
+- **本仓库为 v1.0.0**：功能完整可用，但**界面层已停止演进**（自绘液态玻璃 UI 存在文字可读性问题），
+  保留作为项目起点与经验记录。
+- 打字引擎、数据层、打包链路质量可靠，v2 将复用这些部分、用 Qt 原生控件重写界面。
+
+## 界面预览
+
+![主窗口](_glass_preview.png)
+
+![控件层](_widgets_preview.png)
 
 ---
 
@@ -36,11 +57,20 @@
 
 > 所有热键均可在「设置 → 快捷键」中重新绑定（仅限 F1–F6）。
 
+## 适用场景
+
+| 场景 | 怎么用 |
+|---|---|
+| 录制编程教学视频 | 把示例代码存成预设，F3 自动匀速输出，录屏时像在边讲边敲 |
+| 直播 / 演示 demo | 长命令、长配置项不用背，F1 按键触发，跟着讲解节奏走 |
+| 录制软件操作教程 | 预设任意文本（命令、SQL、配置），配合讲解逐字出现 |
+| 现场演示临时救场 | 预设置顶 + F6 快速切换，多套内容随讲随换 |
+
 ## 快速开始
 
 ### 运行已打包的 exe
 
-1. 双击 `dist\FakeTyperPro.exe`（或其快捷方式）即可启动
+1. 到 [Releases](https://github.com/yizuiningchang/FakeTyper/releases) 下载 `FakeTyperPro.exe`，双击即可启动
 2. 首次启动会显示引导卡片，可跳过
 3. 点击「＋ 新建预设」粘贴代码，开启顶部总开关
 4. 聚焦到目标输入框，按 F1（按键触发）或 F3（自动匀速）开始输出
@@ -187,6 +217,36 @@ python tests/m3e_verify.py
   实现 iOS push/pop 风格（QStackedWidget 无法两页并存）。
 - **主题动态化**：`ThemeManager` 单例 + `themeChanged` 信号遍历所有控件 `update()`；
   `style_text` 注册的 QLabel/QLineEdit 通过动态属性重应用 stylesheet。
+
+## 常见问题
+
+**Q：录课的时候，怎么让代码看起来是自己一行一行敲出来的？**
+把代码保存为预设，开启总开关后按 F3 自动匀速输出，或按 F1 每按一键输出若干字符。
+标点、换行处会自动加长停顿，整体节奏接近真人。
+
+**Q：会占用或篡改剪贴板吗？**
+不会。字符输出走 `VK_PACKET` 直接注入键盘事件，全程不读写剪贴板。
+
+**Q：和 AutoHotkey 脚本、pyautogui 有什么区别？**
+本项目最早就是一版 AHK v2 脚本，后来重构成完整桌面应用：多预设库、热键重绑、系统托盘、
+开机自启、单实例守卫、滚动日志、损坏数据隔离，以及可配的拟人化节奏。
+
+**Q：会被录屏软件或反作弊检测出来吗？**
+输出节奏做了抖动与停顿处理，但本质仍是模拟键盘事件，不对抗任何检测机制。
+
+**Q：为什么必须用管理员权限运行？**
+全局键盘钩子（`keyboard` 库）需要管理员权限。若热键无响应，请右键以管理员身份运行。
+
+**Q：数据存在哪里？**
+默认 `%APPDATA%\FakeTyperPro\`（预设、配置、日志）；exe 同目录放 `portable.flag` 则改为便携模式。
+
+## English Summary
+
+FakeTyper Pro is a Windows desktop tool for **simulated human-like typing**. It types pre-written
+code or text into any focused input field character by character, with randomized delays, punctuation
+pauses and occasional "thinking" pauses — useful for recording coding tutorials, live demos and
+screen-capture videos without editing. Built with PySide6; hotkey-driven, multi-preset, tray-integrated.
+This repository hosts v1.0.0 (legacy; UI frozen, engine reusable).
 
 ## 许可
 
