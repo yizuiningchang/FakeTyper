@@ -143,6 +143,12 @@ def _paint_app_logo(painter: QPainter, x: float, y: float, d: float) -> None:
 class TopBar(QWidget):
     """顶栏：拖动区 + 图标/名称 + 最小化/关闭按钮。"""
 
+    # 图标几何（自绘，与布局左边距共用同一组常量，避免文字压到图标上）
+    _LOGO_X = 14.0
+    _LOGO_Y = 8.0
+    _LOGO_SIZE = 32.0
+    _LOGO_TEXT_GAP = 8
+
     minimizeRequested = Signal()
     closeRequested = Signal()
 
@@ -156,7 +162,9 @@ class TopBar(QWidget):
 
     def _build_ui(self) -> None:
         layout = QHBoxLayout(self)
-        layout.setContentsMargins(14, 8, 8, 8)
+        # 左边距 = 图标右边界 + 间距，标题不会被图标压住
+        left = int(self._LOGO_X + self._LOGO_SIZE + self._LOGO_TEXT_GAP)
+        layout.setContentsMargins(left, 8, 8, 8)
         layout.setSpacing(8)
 
         # 名称
@@ -184,7 +192,7 @@ class TopBar(QWidget):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing, True)
         # 应用图标（自绘）
-        _paint_app_logo(painter, 14.0, 8.0, 32.0)
+        _paint_app_logo(painter, self._LOGO_X, self._LOGO_Y, self._LOGO_SIZE)
         # 标题区下方一条极细分割线
         painter.setPen(QPen(QColor(255, 255, 255, 20), 1))
         painter.drawLine(QPointF(0, self.height() - 1), QPointF(self.width(), self.height() - 1))
