@@ -190,4 +190,14 @@ python tests/m3e_verify.py
 
 ## 许可
 
-© 2026 FakeTyper Pro
+本项目采用 [PolyForm Noncommercial License 1.0.0](LICENSE) 授权。
+
+- **允许**：个人学习、研究、实验、业余项目等一切非商业用途；教育机构、公益组织、政府机构使用
+- **禁止**：任何商业用途（收费分发、集成进商业产品、以获利为目的的使用）
+- **再分发**：分发源码或修改版时必须附带 LICENSE 全文与下方 Required Notice
+
+```
+Required Notice: Copyright 2026 yizuiningchang (https://github.com/yizuiningchang)
+```
+
+商业授权请联系作者。
