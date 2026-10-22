@@ -25,6 +25,15 @@ tests/_*_log.txt
 .codebuddy/
 .trae-html-share-packages/
 
+# ---------- 内部开发文档（本地保留，不入公开仓库）----------
+AI工作交接.md
+工作交接_总索引.md
+FakeTyper软件开发提示词*.md
+SPEC_v2.md
+技术选型评估_v2.md
+moscow-note/
+v3/
+
 # ---------- 系统与临时文件 ----------
 Thumbs.db
 desktop.ini
