@@ -32,7 +32,7 @@ SHA-256 c47cc69a96c3abd5a07c7be1ac48329088dba0d5203ae2676a3c8c8ecd40ccfd
 `FakeTyper-3.0.0-win64.zip` SHA-256：
 
 ```text
-a2446a1ff21bbebd6e62f5b3c71e8457ff415d364f16da317e210adfa45c8a64
+9f117bade852a052b68fd1af5125831ca88c28b77bb52a0489a5728e4d923fd0
 ```
 
 发布包内 `SHA256SUMS.txt` 也包含 `FakeTyper.exe` 的校验值。
