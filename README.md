@@ -1,280 +1,102 @@
-# FakeTyper Pro
+# FakeTyper V3
 
-[![License](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-4c72b0)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0078D6)](https://github.com/yizuiningchang/FakeTyper/releases)
-[![Python](https://img.shields.io/badge/python-3.11%2B-3776AB)](requirements.txt)
+![Version](https://img.shields.io/badge/version-3.0.0-4c72b0)
+![License](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-4c72b0)
+![Platform](https://img.shields.io/badge/platform-Windows%2011-0078D6)
 
-> **一句话**：把预先准备好的代码或文案，用拟人化的打字节奏逐字输出到任意输入框，
-> 让录课、直播、演示里的内容看起来是现场手敲出来的。
+Windows 桌面“伪装打字”工具：你按键，程序按预设顺序逐字输出文本。
+适合录课、直播、代码演示与现场 Demo——内容提前准备好，现场看起来像在手敲。
 
-一个 Windows 桌面端的**伪装打字 / 自动输入工具**。录制教学视频、演示 demo、直播写代码时，
-你可以提前把要展示的内容存成预设，运行时软件按真实打字节奏（含随机抖动、标点停顿、偶尔的思考停顿）
-逐字"敲"进当前光标位置——不用背稿、不会打错、不会卡壳，也不需要剪辑加速。
-
-**关键词**：伪装打字、自动打字、模拟键盘输入、自动输入文字、录课工具、演示录制、代码演示、
-打字动画、auto typer、fake typing、typing simulator、keyboard automation、pyautogui 替代方案
-
-## 版本状态
-
-- **当前版本 v1.0.1（正式版）**：功能完整可用。v1 系列到此为止，界面层不再演进
-  （自绘液态玻璃 UI 存在文字可读性问题），保留作为项目起点与经验记录。
-- v1.0.1 修复了顶栏图标遮挡标题的问题；v1.0.0 为历史版本。
-- 打字引擎、数据层、打包链路质量可靠，v2 将复用这些部分、用 Qt 原生控件重写界面。
-
-## 界面预览
+> 当前版本 **3.0.0**；Windows 11 x64 实机验证，Windows 10 未验证。  
+> 下载：<https://github.com/yizuiningchang/FakeTyper/releases/latest>
 
 <p align="center">
-  <img src="screenshot-main.png" width="320" alt="FakeTyper Pro 主界面">
+  <a href="docs/screenshots/main-window.png">
+    <img src="docs/screenshots/main-window.png" width="900" alt="FakeTyper V3 主界面">
+  </a>
 </p>
 
----
+## 功能
 
-## 技术栈
-
-| 层面 | 技术 |
-|---|---|
-| 界面 | [PySide6](https://doc.qt.io/qtforpython-6/)（Qt 6，自绘控件 + 主题系统） |
-| 键盘输入 | [keyboard](https://github.com/boppreh/keyboard)（全局钩子，VK_PACKET 注入） |
-| 依赖 | [pyperclip](https://github.com/asweigart/pyperclip)、[Pillow](https://python-pillow.org/) |
-| 打包 | [PyInstaller](https://pyinstaller.org/)（单文件、无控制台） |
-| 语言 | Python 3.13 开发，运行需 3.11+（用 Release 的 exe 则无需 Python） |
-
-## 系统要求
-
-- Windows 10 / 11（64 位）
-- 管理员权限（全局键盘钩子必需）
-- 使用 Release 中的 `FakeTyperPro.exe` 时无需安装 Python
-
-## 功能特性
-
-- **两种输出模式**
-  - 按键触发（F1）：每按一键输出 n 个字符（可配 1–5，或随机 1–3）
-  - 自动匀速（F3）：按设定间隔逐字自动输出
-- **拟人化输出**：随机抖动间隔、标点处差异化停顿（逗号短停 / 句号长停 / 换行段落停）、低概率思考停顿
-- **多预设库**：新建 / 编辑 / 删除 / 副本 / 置顶，拖拽排序，实时搜索过滤
-- **预设编辑器**：等宽多行编辑（JetBrains Mono），支持 .txt 导入、剪贴板粘贴，字符/行数/预估时长统计
-- **可重绑热键**：F1–F6 录制式绑定，冲突自动交换
-- **液态玻璃界面**：模糊 + 饱和 + 折射 + 顶光 + 动态高光，超椭圆 squircle 圆角层级化
-- **主题切换**：深色 / 浅色 / 跟随系统，运行时实时刷新
-- **系统集成**：系统托盘（动态图标）、单实例守卫、开机自启、关闭最小化到托盘
-- **首启引导**：三张滑动卡片介绍功能与快捷键
-- **数据安全**：剪贴板全程不碰（字符走 VK_PACKET），数据落 `%APPDATA%`，损坏文件自动隔离
-- **便携模式**：exe 同目录放置 `portable.flag` 即用 `data\` 目录，免写注册表
-
-## 默认快捷键
-
-| 键  | 功能           | 说明                         |
-|-----|----------------|------------------------------|
-| F1  | 按键触发模式   | 开/关，开启后每按一键输出字符 |
-| F2  | 急停           | 立即停止所有输出             |
-| F3  | 自动匀速模式   | 开/关，开启后自动逐字输出     |
-| F4  | 重置进度       | 游标回到预设开头             |
-| F5  | 重新加载预设   | 重新载入当前预设内容         |
-| F6  | 切换下一预设   | 循环切换到下一套预设         |
-
-> 所有热键均可在「设置 → 快捷键」中重新绑定（仅限 F1–F6）。
-
-## 适用场景
-
-| 场景 | 怎么用 |
-|---|---|
-| 录制编程教学视频 | 把示例代码存成预设，F3 自动匀速输出，录屏时像在边讲边敲 |
-| 直播 / 演示 demo | 长命令、长配置项不用背，F1 按键触发，跟着讲解节奏走 |
-| 录制软件操作教程 | 预设任意文本（命令、SQL、配置），配合讲解逐字出现 |
-| 现场演示临时救场 | 预设置顶 + F6 快速切换，多套内容随讲随换 |
+- **F1 / F2 / F3**：开始或停止（停止归零）、暂停或继续、切换下一个预设。
+- **F4–F12 直选槽**：9 个逻辑槽，可为不同段落绑定功能键；运行时未启用的 F4–F12 会被占用，暂停或停止后恢复原生功能。
+- **预设库**：新建、编辑、重命名、复制、删除、拖拽排序；逐键输出，不读写剪贴板。
+- **编辑器式主界面**：左侧预设库、右侧标题与多行编辑区、底部直选槽；默认窗口按 7 个完整槽位设计。
+- **自定义标题栏**：A1 品牌、同位置设置/返回、最小化/最大化/关闭；关闭窗口隐藏到托盘继续运行。
+- **设置页**：常规、皮肤、使用说明、关于四个板块；左导航独立滚动，皮肤暂为静态占位。
+- **托盘三态**：运行、暂停、待机各有独立图标；托盘菜单可切换预设、打开界面或退出。
+- **单文件交付**：无需安装程序；单实例保护；WebView2 缺失时给出原生提示与下载地址。
 
 ## 快速开始
 
-### 运行已打包的 exe
+1. 从 [Releases](https://github.com/yizuiningchang/FakeTyper/releases/latest) 下载 `FakeTyper-3.0.0-win64.zip`，解压后运行 `FakeTyper.exe`。
+2. 首次启动会创建“使用说明”预设并展开主界面。
+3. 在预设库选择文本，按 **F1** 开始；之后按字母、数字、符号或空格输出下一个字符。
+4. 需要修正时按 **F2** 暂停，键盘恢复原生输入；再按 **F1** 停止归零。
+5. 关闭窗口只会隐藏到托盘；退出请使用托盘菜单“退出”。
 
-1. 到 [Releases](https://github.com/yizuiningchang/FakeTyper/releases) 下载 `FakeTyperPro.exe`，双击即可启动
-2. 首次启动会显示引导卡片，可跳过
-3. 点击「＋ 新建预设」粘贴代码，开启顶部总开关
-4. 聚焦到目标输入框，按 F1（按键触发）或 F3（自动匀速）开始输出
+数据目录：`%APPDATA%\FakeTyper`。升级前可自行备份；本版没有数据迁移步骤。
 
-### 从源码运行
+## 界面预览
 
-```bash
-# 安装依赖
-pip install -r requirements.txt
+| 设置 · 常规 | 设置 · 本地数据 |
+| --- | --- |
+| <a href="docs/screenshots/settings-general.png"><img src="docs/screenshots/settings-general.png" width="420" alt="常规设置"></a> | <a href="docs/screenshots/settings-general-data.png"><img src="docs/screenshots/settings-general-data.png" width="420" alt="数据目录与恢复默认"></a> |
+| **皮肤** — 当前版本只提供深色外观，后续能力预留 | **关于** — 版本与作者信息 |
+| <a href="docs/screenshots/settings-skin.png"><img src="docs/screenshots/settings-skin.png" width="420" alt="皮肤占位"></a> | <a href="docs/screenshots/settings-about.png"><img src="docs/screenshots/settings-about.png" width="420" alt="关于与作者名片"></a> |
 
-# 启动 GUI（默认）
-python -m facktyper
+| 直选槽配置 | 使用说明 |
+| --- | --- |
+| <a href="docs/screenshots/slot-dialog.png"><img src="docs/screenshots/slot-dialog.png" width="420" alt="配置直选槽"></a> | <a href="docs/screenshots/settings-help.png"><img src="docs/screenshots/settings-help.png" width="420" alt="使用说明"></a> |
 
-# 命令行交互模式
-python -m facktyper cli
+<p align="center">
+  <a href="docs/screenshots/settings-help-system.png">
+    <img src="docs/screenshots/settings-help-system.png" width="900" alt="系统与依赖、已知限制">
+  </a>
+</p>
 
-# 运行自测
-python -m facktyper selftest
+## 快捷键
 
-# 以最小化到托盘启动（开机自启用）
-python -m facktyper --minimized
-```
+| 按键 | 功能 |
+|---|---|
+| F1 | 开始 / 停止（停止后进度归零） |
+| F2 | 暂停 / 继续（暂停时键盘恢复原生输入） |
+| F3 | 切换到下一个预设 |
+| F4–F12 | 直选槽；可在设置中启用、改键、绑定预设 |
 
-> `keyboard` 库安装全局键盘钩子需要管理员权限。若热键无响应，请以管理员身份运行。
+> 运行态下，未启用或空出的 F4–F12（不含 Ctrl/Alt/Win 组合）由 FakeTyper 占用。需要浏览器 F5、讯飞 F7 等原生功能时，先按 F2 暂停或 F1 停止。
 
-## 打包
+## 系统要求
 
-```bash
-# 一键构建单文件 exe（自动检查依赖、生成图标、调用 PyInstaller）
-build.bat
+- **Windows 11 x64**：已实测（10.0.26100 / 2560×1600）。
+- **Windows 10 x64 22H2+**：目标平台，但 **Win10 未验证**；不宣称已支持。
+- **Microsoft Edge WebView2 Runtime**：必需；Win11 通常自带，缺失时启动会显示提示与官方下载地址。
+- 普通权限可运行；向管理员权限窗口输出时，需要以管理员身份启动 FakeTyper。
+- 设计支持 1080P–4K / 100%–200% 缩放；已在 2560×1600 实机验证 100/125/150/200%。真实 4K、多显示器混合 DPI 未实测。
 
-# 仅重新生成应用图标
-build.bat icon
+## 已知限制
 
-# 清理构建产物
-build.bat clean
-```
+- 目标代码编辑器需关闭自动缩进，否则换行缩进会逐层叠加。VS Code 可设置 `"editor.autoIndent": "none"`。
+- 笔记本需关闭或锁定 Fn 媒体层，确保 F1–F12 由系统发送。
+- 未做数字签名；Windows SmartScreen 可能提示，请核对来源与 SHA-256。
+- Win10、真实 4K、多屏混合 DPI、任务栏缩略图/跳转列表、Snap Layouts 飞出层、触摸/触控笔未验证。
+- 当前构建的“皮肤”仅静态占位；主题、透明度与模糊未实现。
+- 长代码行在窄窗口可能需要横向滚动；默认窗口按 7 个完整槽位设计。
 
-产出：`dist\FakeTyperPro.exe`（约 53 MB，单文件，无控制台窗口）
+## 数据与隐私
 
-也可手动执行：
+- 应用运行期不发起网络请求，不读写剪贴板，不记录按键内容或预设文本。
+- 数据仅保存在本机 `%APPDATA%\FakeTyper`。
+- 关闭窗口隐藏到托盘；正常退出后释放键盘钩子。
 
-```bash
-pip install pyinstaller pillow pyperclip
-python make_icon.py
-pyinstaller FakeTyperPro.spec --noconfirm
-```
+## 关于本仓库
 
-## 目录结构
-
-```
-fackTyper项目/
-├── src/facktyper/
-│   ├── __main__.py          # 入口：gui(默认) / cli / selftest
-│   ├── cli.py               # 命令行交互模式
-│   ├── selftest.py          # 内置自测
-│   ├── data/                # 数据层
-│   │   ├── paths.py         #   路径解耦（%APPDATA% / 便携模式）
-│   │   ├── preset.py        #   预设模型
-│   │   ├── preset_store.py  #   预设 CRUD
-│   │   ├── config.py        #   设置 + 热键映射
-│   │   └── constants.py     #   Action 枚举 + F1–F6 白名单
-│   ├── core/                # 核心引擎
-│   │   ├── typing_engine.py #   状态机 + 字符输出 + 拟人化
-│   │   ├── hotkey_manager.py#   键盘钩子 + 抑制
-│   │   ├── clipboard_guard.py#  剪贴板保护
-│   │   ├── controller.py    #   热键→动作 + 总开关 + 预设管理
-│   │   ├── single_instance.py#  单实例守卫
-│   │   ├── autostart.py     #   开机自启（注册表）
-│   │   └── tray_controller.py#  系统托盘
-│   ├── ui/                  # 界面层
-│   │   ├── app.py           #   run_gui 入口
-│   │   ├── theme.py         #   主题管理 + 色板
-│   │   ├── widgets/         #   液态玻璃核心 + 控件
-│   │   └── views/           #   主窗口 / 编辑页 / 设置页 / 引导页
-│   ├── utils/               # 工具
-│   │   ├── logger.py        #   滚动日志 + 全局异常钩子
-│   │   └── atomic.py        #   原子化读写
-│   └── resources/
-│       └── app.ico          #   应用图标
-├── tests/                   # 验证脚本
-├── FakeTyperPro.spec        # PyInstaller 配置
-├── make_icon.py             # 图标生成脚本
-├── build.bat                # 一键打包
-├── version_info.txt         # Windows 版本资源
-├── requirements.txt         # 运行依赖
-└── pyproject.toml           # 项目元数据
-```
-
-## 数据存储
-
-| 模式   | 位置                              | 触发条件                          |
-|--------|-----------------------------------|-----------------------------------|
-| 常规   | `%APPDATA%\FakeTyperPro\`         | 默认                              |
-| 便携   | exe 同目录 `\data\`               | exe 同目录存在 `portable.flag` 文件 |
-
-目录内含 `presets\`（预设 JSON）、`config.json`（设置）、`logs\`（日志）、
-`backups\`（损坏预设隔离区）。
-
-## 验证测试
-
-```bash
-# 引擎状态机
-python tests/test_engine_logic.py
-
-# 真实键盘抑制链路
-python tests/test_real_suppression.py
-
-# 液态玻璃渲染
-python tests/render_glass.py
-
-# 控件层
-python tests/render_widgets.py
-
-# 主窗口
-python tests/render_main_window.py
-
-# 编辑页
-python tests/render_editor_page.py
-
-# 设置中心
-python tests/render_settings_page.py
-
-# 首启引导
-python tests/render_onboarding.py
-
-# 主题切换
-python tests/m3d_verify.py
-
-# 托盘 + 单实例
-python tests/m3e_verify.py
-```
-
-> 涉及持久化数据的测试（如 selftest）须串行运行，不可与写预设的测试并行。
-
-## 技术要点
-
-- **字符输出**：统一走 `keyboard._os_keyboard.type_unicode`（VK_PACKET），绕过 LL 钩子——
-  既不触发回调也不被抑制，且完全不碰剪贴板，天然满足剪贴板保护目标。
-- **特殊键**：Enter 在抑制期间临时摘单键钩子再发送；Tab/Backspace 不在抑制白名单直接发送。
-- **引擎与 UI 分离**：纯 Python 引擎通过 `EngineListener` 回调通信，
-  `EngineBridge` 适配为 Qt 信号（跨线程 AutoConnection 自动队列化）。
-- **双页面转场**：自定义容器 + `QVariantAnimation` 驱动位移 + `QGraphicsOpacityEffect` 淡入淡出，
-  实现 iOS push/pop 风格（QStackedWidget 无法两页并存）。
-- **主题动态化**：`ThemeManager` 单例 + `themeChanged` 信号遍历所有控件 `update()`；
-  `style_text` 注册的 QLabel/QLineEdit 通过动态属性重应用 stylesheet。
-
-## 常见问题
-
-**Q：录课的时候，怎么让代码看起来是自己一行一行敲出来的？**
-把代码保存为预设，开启总开关后按 F3 自动匀速输出，或按 F1 每按一键输出若干字符。
-标点、换行处会自动加长停顿，整体节奏接近真人。
-
-**Q：会占用或篡改剪贴板吗？**
-不会。字符输出走 `VK_PACKET` 直接注入键盘事件，全程不读写剪贴板。
-
-**Q：和 AutoHotkey 脚本、pyautogui 有什么区别？**
-本项目最早就是一版 AHK v2 脚本，后来重构成完整桌面应用：多预设库、热键重绑、系统托盘、
-开机自启、单实例守卫、滚动日志、损坏数据隔离，以及可配的拟人化节奏。
-
-**Q：会被录屏软件或反作弊检测出来吗？**
-输出节奏做了抖动与停顿处理，但本质仍是模拟键盘事件，不对抗任何检测机制。
-
-**Q：为什么必须用管理员权限运行？**
-全局键盘钩子（`keyboard` 库）需要管理员权限。若热键无响应，请右键以管理员身份运行。
-
-**Q：数据存在哪里？**
-默认 `%APPDATA%\FakeTyperPro\`（预设、配置、日志）；exe 同目录放 `portable.flag` 则改为便携模式。
-
-## English Summary
-
-FakeTyper Pro is a Windows desktop tool for **simulated human-like typing**. It types pre-written
-code or text into any focused input field character by character, with randomized delays, punctuation
-pauses and occasional "thinking" pauses — useful for recording coding tutorials, live demos and
-screen-capture videos without editing. Built with PySide6; hotkey-driven, multi-preset, tray-integrated.
-This repository hosts v1.0.0 (legacy; UI frozen, engine reusable).
+本仓库发布 **v3 单文件二进制**；v3 源码不公开。v1.0.0 / v1.0.1 是历史版本，保留在 tags 中。
 
 ## 许可
 
-本项目采用 [PolyForm Noncommercial License 1.0.0](LICENSE) 授权。
+[PolyForm Noncommercial License 1.0.0](LICENSE)。仅供非商业用途；商业使用需另行获得许可。
 
-- **允许**：个人学习、研究、实验、业余项目等一切非商业用途；教育机构、公益组织、政府机构使用
-- **禁止**：任何商业用途（收费分发、集成进商业产品、以获利为目的的使用）
-- **再分发**：分发源码或修改版时必须附带 LICENSE 全文与下方 Required Notice
+## 作者
 
-```
-Required Notice: Copyright 2026 yizuiningchang (https://github.com/yizuiningchang)
-```
-
-商业授权请联系作者。
+凝裳（[@yizuiningchang](https://github.com/yizuiningchang)）· FakeTyper 作者
